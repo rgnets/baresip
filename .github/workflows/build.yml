@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - main
+    - rgnets-custom
   pull_request:
     branches:
     - main
@@ -16,7 +17,7 @@ jobs:
     strategy:
       matrix:
         compiler: [gcc, clang, gcc-14]
-        os: [ubuntu-22.04, ubuntu-24.04, macos-latest]
+        os: [ubuntu-22.04, ubuntu-24.04, macos-latest, ubuntu-24.04-arm]
         exclude:
           - os: macos-latest
             compiler: gcc
