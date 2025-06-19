@@ -8,32 +8,32 @@
 #include <baresip.h>
 
 
-// Clamp value between min and max
+/* Clamp value between min and max */
 double clamp(double value, double min, double max) {
 	if (value < min) return min;
 	if (value > max) return max;
 	return value;
 }
 
-// Calculate MOS using ITU-T E-model approximation
+/* Calculate MOS using ITU-T E-model approximation */
 double calculate_mos(double rtt_ms, double tx_jitter_ms, double rx_jitter_ms, double packet_loss_percent) {
-	// Step 1: Calculate mouth-to-ear delay (ms)
+	/* Step 1: Calculate mouth-to-ear delay (ms) */
 	double delay = rtt_ms + tx_jitter_ms + rx_jitter_ms;
 
-	// Step 2: Calculate delay impairment
+	/* Step 2: Calculate delay impairment */
 	double delay_impairment = 0.024 * delay;
 	if (delay > 177.3) {
 		delay_impairment += 0.11 * (delay - 177.3);
 	}
 
-	// Step 3: Calculate loss impairment (simplified)
+	/* Step 3: Calculate loss impairment (simplified) */
 	double loss_impairment = 2.5 * packet_loss_percent;
 
-	// Step 4: Calculate R-factor
+	/* Step 4: Calculate R-factor */
 	double R = 94.2 - delay_impairment - loss_impairment;
 	R = clamp(R, 0.0, 100.0);
 
-	// Step 5: Calculate MOS from R-factor
+	/* Step 5: Calculate MOS from R-factor */
 	double MOS = 1.0 + 0.035 * R + (R * (R - 60.0) * (100.0 - R) * 7.0e-6);
 	MOS = clamp(MOS, 1.0, 5.0);
 
@@ -88,7 +88,7 @@ static void print_rtcp_summary_line(const struct call *call,
 			 	1.0 * rtcp->rtt/1000,
 			 	1.0 * rtcp->tx.jit/1000,
 			 	1.0 * rtcp->rx.jit/1000,
-				// A naive handling of packet loss here. There is likely a better way.
+				/* A naive handling of packet loss here. There is likely a better way. */
 				(1.0*(rtcp->rx.lost + rtcp->tx.lost) / (rtcp->rx.sent + rtcp->tx.sent))
 				)
 			 );
