@@ -16,7 +16,8 @@ double clamp(double value, double min, double max) {
 }
 
 /* Calculate MOS using ITU-T E-model approximation */
-double calculate_mos(double rtt_ms, double tx_jitter_ms, double rx_jitter_ms, double packet_loss_percent) {
+double calculate_mos(double rtt_ms, double tx_jitter_ms,
+			double rx_jitter_ms, double packet_loss_percent) {
 	/* Step 1: Calculate mouth-to-ear delay (ms) */
 	double delay = rtt_ms + tx_jitter_ms + rx_jitter_ms;
 
@@ -48,8 +49,6 @@ static void print_rtcp_summary_line(const struct call *call,
 	rtcp = stream_rtcp_stats(s);
 
 	if (rtcp && (rtcp->tx.sent || rtcp->rx.sent)) {
-
-
 
 		info("\n");
 		/*
@@ -88,8 +87,10 @@ static void print_rtcp_summary_line(const struct call *call,
 			 	1.0 * rtcp->rtt/1000,
 			 	1.0 * rtcp->tx.jit/1000,
 			 	1.0 * rtcp->rx.jit/1000,
-				/* A naive handling of packet loss here. There is likely a better way. */
-				(1.0*(rtcp->rx.lost + rtcp->tx.lost) / (rtcp->rx.sent + rtcp->tx.sent))
+				/* A naive handling of packet loss here.
+				   There is likely a better way. */
+				(1.0*(rtcp->rx.lost + rtcp->tx.lost)
+					/(rtcp->rx.sent + rtcp->tx.sent))
 				)
 			 );
 	}
