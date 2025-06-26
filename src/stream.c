@@ -51,6 +51,12 @@ static void print_rtp_stats(const struct stream *s)
 		     1.0*s->rtcp_stats.tx.jit/1000,
 		     1.0*s->rtcp_stats.rx.jit/1000);
 	}
+	info(
+		 "rtt:         %7f\n"
+		 ,
+		 1.0*s->rtcp_stats.rtt/1000
+		 );
+
 }
 
 
