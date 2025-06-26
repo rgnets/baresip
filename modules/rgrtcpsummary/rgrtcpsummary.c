@@ -148,7 +148,7 @@ static int module_close(void)
 }
 
 
-const struct mod_export DECL_EXPORTS(rtcpsummary) = {
+const struct mod_export DECL_EXPORTS(rgrtcpsummary) = {
 	"rgrtcpsummary",
 	"application",
 	module_init,
