@@ -133,7 +133,7 @@ static int module_init(void)
 {
 	int err = bevent_register(event_handler, NULL);
 	if (err) {
-		info("Error loading rtcpsummary module: %d", err);
+		info("Error loading rgrtcpsummary module: %d", err);
 		return err;
 	}
 	return 0;
@@ -142,14 +142,14 @@ static int module_init(void)
 
 static int module_close(void)
 {
-	debug("rtcpsummary: module closing..\n");
+	debug("rgrtcpsummary: module closing..\n");
 	bevent_unregister(event_handler);
 	return 0;
 }
 
 
 const struct mod_export DECL_EXPORTS(rtcpsummary) = {
-	"rtcpsummary",
+	"rgrtcpsummary",
 	"application",
 	module_init,
 	module_close
