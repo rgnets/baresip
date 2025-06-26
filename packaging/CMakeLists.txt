@@ -17,6 +17,6 @@ set(CPACK_DEBIAN_FILE_NAME DEB-DEFAULT)
 set(CPACK_DEBIAN_APPLICATIONS_PACKAGE_NAME "baresip")
 set(CPACK_DEBIAN_LIBRARIES_PACKAGE_NAME "libbaresip")
 set(CPACK_DEBIAN_DEVELOPMENT_PACKAGE_NAME "libbaresip-dev")
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libssl3, zlib1g, libc6, libbaresip, libre")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libssl1.1, zlib1g, libc6, libbaresip, libre")
 
 include(CPack)
