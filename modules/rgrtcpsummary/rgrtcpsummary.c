@@ -9,14 +9,14 @@
 
 
 /* Clamp value between min and max */
-double clamp(double value, double min, double max) {
+static double clamp(double value, double min, double max) {
 	if (value < min) return min;
 	if (value > max) return max;
 	return value;
 }
 
 /* Calculate MOS using ITU-T E-model approximation */
-double calculate_mos(double rtt_ms, double tx_jitter_ms,
+static double calculate_mos(double rtt_ms, double tx_jitter_ms,
 			double rx_jitter_ms, double packet_loss_percent) {
 	/* Step 1: Calculate mouth-to-ear delay (ms) */
 	double delay = rtt_ms + tx_jitter_ms + rx_jitter_ms;
